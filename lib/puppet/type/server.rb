@@ -31,4 +31,8 @@ Puppet::Type.newtype(:server) do
     end
   end
 
+  newparam(:user_data) do
+    desc 'local filepath for userdata'
+  end
+
 end

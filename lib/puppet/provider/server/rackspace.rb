@@ -7,7 +7,7 @@ end
 
 Puppet::Type.type(:server).provide(:rackspace, :parent => Puppet::Provider::Server) do
   confine :feature => :fog
-  def compute
+  def _compute
     Fog::Compute.new(:provider => 'rackspace', :version => 'v2')
   end
 end

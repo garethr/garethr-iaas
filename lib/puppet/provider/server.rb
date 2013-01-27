@@ -17,6 +17,7 @@ class Puppet::Provider::Server < Puppet::Provider
           :image_id  => resource[:image],
           :name      => _name(i),
           :flavor_id => resource[:flavor],
+          :user_data => _user_data,
         )
         Puppet.debug("Creating new server: #{_name(i)}")
         server.wait_for { ready? }
@@ -35,6 +36,11 @@ class Puppet::Provider::Server < Puppet::Provider
       Puppet.debug("Destroying server: #{_name(i)}")
       instance.destroy if _server_exists?(_name(i))
     }
+  end
+
+  def _user_data
+     user_data = resource[:user_data] ? File.read(resource[:user_data]) : ""
+     Base64.encode64(user_data)
   end
 
   def _compute
