@@ -23,4 +23,12 @@ Puppet::Type.newtype(:server) do
     end
   end
 
+  newparam(:count) do
+    desc 'the number of instances of this type'
+    validate do |value|
+      raise Puppet::Error, "Count should be a number" unless value =~ /\d+/
+      raise Puppet::Error, "Empty values are not allowed" if value == ""
+    end
+  end
+
 end
